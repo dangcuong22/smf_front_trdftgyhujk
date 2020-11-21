@@ -472,7 +472,7 @@ class Project extends React.Component {
                         </Button>
                         <Button
                             className='station__button-create'
-                            // onClick={this.handleCreateProject.bind(this)}
+                            onClick={this.handleCreateProject.bind(this)}
                         >
                             Tạo mới
                         </Button>
