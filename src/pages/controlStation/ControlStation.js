@@ -1,5 +1,5 @@
 import React from "react";
-import socketIOClient, { Socket } from "socket.io-client";
+import socketIOClient from "socket.io-client";
 import {
     Row, Col,
     Card, CardBody, CardHeader,
@@ -44,7 +44,6 @@ class Controlstation extends React.Component {
                 battery: null,
             },
             last_update : new Date(),
-            statusAutoControlDevice: false
         };
         this.RSSI = {
             "Perfect": "Tuyệt vời",
@@ -63,7 +62,7 @@ class Controlstation extends React.Component {
             let data = {};
             let relay_1 = {}
             let relay_2 = {}
-            data.sub_id = 'G00';
+            data.sub_id = name;
             
             if(status === "00"){
                 relay_1.value = "0";
@@ -124,7 +123,7 @@ class Controlstation extends React.Component {
                 sub_id: sub_id,
             },
         });
-        socket.on("controller_G00", function(result) {    
+        socket.on("controller_" + sub_id, function(result) {    
             if(!isEmpty(result)){
                 if(result.status==='False') return Notification('error',"Đang cập nhật dữ liệu cảm biến","Vui lòng đợi 5 giây và thử lại");
                 else{
@@ -135,16 +134,8 @@ class Controlstation extends React.Component {
                 }
             }   
         });
-        socket.on("statusAutoControlDevice", (result)=> {    
-            console.log(result)
-            that.setState({statusAutoControlDevice: result});
-        });
         socket.on("error", function(err) {});
         this.setValueDevice();
-    }
-
-    sendChangeStatusAutoControl(status){
-        socket.emit("setStatusAutoControlDevice", status);
     }
 
     render() {
@@ -154,33 +145,18 @@ class Controlstation extends React.Component {
             <React.Fragment>
                 <Card>
                     <CardHeader>
-                        <div className="d-flex justify-content-between" >
-                            <div>
-                                <h1 className='text-center font-weight-bold d-inline mt-4'>
-                                    Nhà kính {location}
-                                </h1>
-                            </div>
-                            <div className='float-right d-inline '>
-                                <h4 className='text-center font-weight-bold'>Thời gian cập nhập:</h4>
-                                <h4>
-                                    {moment().format("DD/MM/YYYY h:mm:ss a")}
-                                </h4>
-                            </div>
+                        <h1 className='text-center font-weight-bold d-inline mt-4'>
+                            Nhà kính {location}
+                        </h1>
+                        <div className='float-right d-inline '>
+                            <h4 className='text-center font-weight-bold'>Thời gian cập nhập:</h4>
+                            <h4>
+                                {moment().format("DD/MM/YYYY h:mm:ss a")}
+                            </h4>
                         </div>
                     </CardHeader>
                     <CardBody>
                         <Row>
-                            <Col xs='12' md='12' sm='12' className='d-flex justify-content-between mb-3'>
-                                <h3 className={this.state.statusAutoControlDevice?"text-success":"text-danger"}>
-                                    Trạng thái Điều khiển thiết bị tự động: {this.state.statusAutoControlDevice?'Bật':'Tắt'}
-                                </h3>
-                                <Button className={`btn-success float-right ${!this.state.statusAutoControlDevice?'':'d-none'} `}
-                                    onClick={this.sendChangeStatusAutoControl.bind(this,true)}
-                                >Bật</Button>
-                                <Button className={`btn-danger float-right ${this.state.statusAutoControlDevice?'':'d-none'} `}
-                                    onClick={this.sendChangeStatusAutoControl.bind(this,false)}
-                                >Tắt</Button>
-                            </Col>
                             <Col xs='12' md='6' sm='12'>
                                 <Card body outline color='primary'>
                                     <h2 className='text-center'>Máy bơm</h2>

@@ -273,7 +273,7 @@ class Crypto extends React.Component {
                 sub_id: sub_id,
             },
         });
-            socket.on('dataSensor', function(value) {    
+            socket.on("farm_" + sub_id, function(value) {    
                 console.log(value);        
                     if(that.state.socket === true){
                     that.setState({ 
@@ -364,15 +364,12 @@ class Crypto extends React.Component {
                 <Row>
                     <Col lg='6' className='d-flex'>
                         <Tables
-                            sub_id = {this.state.info.sub_id || {}}
                             data={this.state.data_tables}
                             handleChangeType={this.handleChangeType}
                         />
                     </Col>
                     <Col lg='6' className='d-flex'>
                         <Chart
-                            range = {this.state.info.stage || {}}
-                            sub_id = {this.state.info.sub_id || {}}
                             data={this.state.data_charts}
                             type={this.state.type}
                             handleSearch={this.handleSearch}

@@ -255,17 +255,6 @@ class General extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xs="6">   
-                                    <Label>Diện tích (m2)</Label>
-                                    <FormGroup>
-                                        <Input
-                                                type="number" name="acreage"
-                                                defaultValue={this.state.data.acreage}
-                                                onChange={this.handleChange}
-                                                autoComplete="off"
-                                            />
-                                    </FormGroup>
-                                </Col> 
                                 <Col xs="6">
                                     <Label for="name_of_address">Ngày bắt đầu</Label>
                                     <FormGroup>

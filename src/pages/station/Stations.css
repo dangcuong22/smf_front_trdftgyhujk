@@ -202,20 +202,3 @@ and (max-device-width: 812px){
     width: 80px;
     height: 80px;
 }
-
-.table-project__actions{
-    position: absolute;
-    cursor: pointer;
-    right: 10px;
-    top: 10px;
-}
-.table-project__disabled img{
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-}
-.table-project__disabled .table-project__card-header{
-    background-color: #c1c1c1!important;
-}
-.table-project__disabled .table-project__name-tree{
-    color: #4c555d !important;
-}

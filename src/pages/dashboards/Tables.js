@@ -22,7 +22,24 @@ const Temperatures = [
   },
   {
     dataField: "T1.value",
-    text: "Nhiệt độ",
+    text: "T1",
+    sort: true,
+    style: function callback(cell) {      
+      const { min_temp, max_temp} = utils.getStationInfo().stage;      
+      if (cell >= min_temp && cell <= max_temp ) {
+        return { color: "green" };
+      }
+      else if (cell <= min_temp) {
+        return { color: "orange" };
+      }
+      else{
+        return { color: "red" };
+      }
+    },
+  },
+  {
+    dataField: "T2.value",
+    text: "T2",
     sort: true,
     style: function callback(cell) {      
       const { min_temp, max_temp} = utils.getStationInfo().stage;      
@@ -46,7 +63,24 @@ const Humidites = [
   },
   {
     dataField: "H1.value",
-    text: "Độ ẩm",
+    text: "H1",
+    sort: true,
+    style: function callback(cell) {      
+      const {min_hum, max_hum} = utils.getStationInfo().stage;      
+      if (cell >= min_hum && cell <= max_hum ) {
+        return { color: "green" };
+      }
+      else if (cell <= min_hum) {
+        return { color: "orange" };
+      }
+      else{
+        return { color: "red" };
+      }
+    },
+  },
+  {
+    dataField: "H2.value",
+    text: "H2",
     sort: true,
     style: function callback(cell) {      
       const {min_hum, max_hum} = utils.getStationInfo().stage;      
@@ -409,6 +443,47 @@ const SoilMoistures = [
     },
   }
 ];
+const PHs = [
+  {
+    dataField: "time",
+    text: "Time",
+    sort: true,
+  },
+  {
+    dataField: "PH1.value",
+    text: "PH1",
+    sort: true,
+    style: function callback(cell) {      
+      const {min_PH, max_PH} = utils.getStationInfo().stage;      
+      if (cell >= min_PH && max_PH) {
+        return { color: "green" };
+      }
+      else if (cell <= min_PH) {
+        return { color: "orange" };
+      }
+      else{
+        return { color: "red" };
+      }
+    },
+  },
+  {
+    dataField: "PH2.value",
+    text: "PH2",
+    sort: true,
+    style: function callback(cell) {      
+      const {min_PH, max_PH} = utils.getStationInfo().stage;      
+      if (cell >= min_PH && max_PH) {
+        return { color: "green" };
+      }
+      else if (cell <= min_PH) {
+        return { color: "orange" };
+      }
+      else{
+        return { color: "red" };
+      }
+    },
+  }
+];
 const Lights = [
   {
     dataField: "time",
@@ -417,7 +492,24 @@ const Lights = [
   },
   {
     dataField: "L1.value",
-    text: "Ánh sáng",
+    text: "L1",
+    sort: true,
+    style: function callback(cell) {      
+      const {min_light, max_light} = utils.getStationInfo().stage;      
+      if (cell >= min_light && max_light) {
+        return { color: "green" };
+      }
+      else if (cell <= min_light) {
+        return { color: "orange" };
+      }
+      else{
+        return { color: "red" };
+      }
+    },
+  },
+  {
+    dataField: "L2.value",
+    text: "L2",
     sort: true,
     style: function callback(cell) {      
       const {min_light, max_light} = utils.getStationInfo().stage;      
@@ -475,24 +567,30 @@ class Tables extends React.Component {
 
   render() {
     const data = this.props.data;
+    
     return (
       <Card className="Card--width">
         <ToolkitProvider
           keyField="time"
           data={data}
           columns={
-            this.state.type === "%" ?
+            this.state.type === "%"
+              ?
               Humidites
-              : this.state.type === "℃" ?
+              :
+              this.state.type === "℃"
+                ?
                 Temperatures
-              : this.state.type === "%%" && this.props.sub_id ==="G00"?
-                [SoilMoistures[0],SoilMoistures[1],SoilMoistures[2],SoilMoistures[3],SoilMoistures[4],SoilMoistures[5],SoilMoistures[6],SoilMoistures[7],SoilMoistures[8],
-                SoilMoistures[9],SoilMoistures[10],SoilMoistures[11],SoilMoistures[12],SoilMoistures[13],SoilMoistures[14],SoilMoistures[15],SoilMoistures[16]]
-              : this.state.type === "%%" && this.props.sub_id ==="G01"?
-                [SoilMoistures[0],SoilMoistures[17],SoilMoistures[18]]
-              : this.state.type === "%%" && this.props.sub_id ==="G02"?
-                [SoilMoistures[0],SoilMoistures[19],SoilMoistures[20]]
-              : Lights
+                :
+                this.state.type === "%%"
+                  ?
+                  SoilMoistures
+                  :
+                  this.state.type === "null"
+                    ?
+                    Lights
+                    :
+                    PHs
 
           }
 
@@ -509,6 +607,7 @@ class Tables extends React.Component {
                     <Col xs="6" className="mt-1">
                       <Input type="select" onChange={this.handleChangeType} value={this.state.type}>
                         <option value="%"  className="table__text-size">Độ ẩm không khí</option>
+                        <option value="" className="table__text-size">PH</option>
                         <option value="℃"  className="table__text-size">Nhiệt độ</option>
                         <option value="%%" className="table__text-size">Độ ẩm đất</option>
                         <option value="null" className="table__text-size">Ánh sáng</option>

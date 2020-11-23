@@ -5,7 +5,7 @@ const axios = require('axios');
 
 function getData(query,callback) {
     axios({
-        url:`${config_api.data}/G00?${query||""}` ,
+        url:`${config_api.data}/${utils.getStationInfo().sub_id}?${query||""}` ,
         method: 'GET',
         headers: {
             "Content-type": "application/json",

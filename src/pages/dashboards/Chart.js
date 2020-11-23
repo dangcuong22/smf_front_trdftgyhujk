@@ -3,29 +3,21 @@ import React from "react";
 import ApexCharts from "react-apexcharts";
 
 import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  UncontrolledDropdown,
-  Input,
-  Row,
-  Col,
+  Card, CardBody, CardHeader, CardTitle,
+  DropdownMenu, DropdownToggle, DropdownItem, UncontrolledDropdown, Input,
+  Row, Col
 } from "reactstrap";
-import { formatDate, parseDate } from "react-day-picker/moment";
-import moment from "moment";
-import DayPickerInput from "react-day-picker/DayPickerInput";
+import { formatDate, parseDate } from 'react-day-picker/moment';
+import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 class DateTimePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleFromChange = this.handleFromChange.bind(this);
     this.handleToChange = this.handleToChange.bind(this);
     this.state = {
-      from: new Date(moment().startOf("year").format("L")),
-      to: new Date(moment().endOf("year").format("L")),
+      from: new Date(moment().startOf('year').format('L')),
+      to: new Date(moment().endOf('year').format('L')),
     };
   }
 
@@ -41,17 +33,16 @@ class DateTimePicker extends React.Component {
   render() {
     const { from, to } = this.state;
     const modifiers = { start: from, end: to };
-    console.log(from, to);
+    console.log(from,to);
     return (
-      <div className="InputFromTo">
-        <UncontrolledDropdown>
+      <div className="InputFromTo" >
+        <UncontrolledDropdown >
           <DropdownToggle caret color="light">
-            PHase: {moment(from).format("DD/MM/YYYY")} -{" "}
-            {moment(to).format("DD/MM/YYYY")}{" "}
+            PHase: {moment(from).format('DD/MM/YYYY')} - {moment(to).format('DD/MM/YYYY')} {' '}
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>
-              Start time:{" "}
+              Start time: {' '}
               <DayPickerInput
                 inputProps={{ style: { width: 100 } }}
                 value={from}
@@ -70,9 +61,9 @@ class DateTimePicker extends React.Component {
               />
             </DropdownItem>
             <DropdownItem header>
-              End Time:{" "}
+              End Time: {' '}
               <DayPickerInput
-                ref={(el) => (this.to = el)}
+                ref={el => (this.to = el)}
                 inputProps={{ style: { width: 100 } }}
                 value={to}
                 placeholder="To"
@@ -104,54 +95,30 @@ class Chart extends React.Component {
       data: [],
       socket: true,
       type: "realtime",
-      range: {},
     };
     this.handerSetDueDateKPI = this.handerSetDueDateKPI.bind(this);
     this.handleChangeType = this.handleChangeType.bind(this);
     this.options = {
       stroke: {
-        width: 3,
+        width: 3
       },
       xaxis: {
         type: "datetime",
         show: true,
         labels: {
           datetimeFormatter: {
-            year: "yyyy",
-            month: "MMM 'yy",
-            day: "dd MMM",
-            hour: "HH:mm",
-          },
+            year: 'yyyy',
+            month: 'MMM \'yy',
+            day: 'dd MMM',
+            hour: 'HH:mm'
+          }
         },
-        tickAmount: "dataPoints",
+        tickAmount: 'dataPoints',
       },
-      colors: [
-        "#0cc2aa",
-        "#fcc100",
-        "#66ff66",
-        "#BD10E0",
-        "#5fc27e",
-        "#5b7dff",
-        "#c6eb34",
-        "#34ebb7",
-        "#34ebb7",
-        "#4BBF73",
-        "#354052",
-        "#f0ad4e",
-        "#aaabb3",
-        "#66ff66",
-        "#6f42c1",
-        "#c6eb34",
-        "#34ebb7",
-        "#34ebb7",
-        "#4BBF73",
-        "#354052",
-        "#f0ad4e",
-        "#aaabb3",
-        "#66ff66",
-        "#6f42c1",
-      ],
+      // colors: ["#0cc2aa", "#fcc100", "#f44455", "#f44455", "#5fc27e", "#f3ff05"]
+      colors: ["#0cc2aa", "#fcc100", "#f44455", "#BD10E0", "#5fc27e", "#5b7dff", "#c6eb34", "#34ebb7", "#34ebb7", "#36403d", "#f3ff05", "#8e9be8", "#aaabb3", "#66ff66", "#f0ece6"]
     };
+
   }
 
   componentDidMount() {
@@ -164,307 +131,317 @@ class Chart extends React.Component {
   }
   handleChangeType(event) {
     this.setState({
-      type: event.target.value,
-    });
+      type: event.target.value
+    })
     if (event.target.value === "report") {
       this.props.handleChangeSocket(false);
-    } else {
+    }
+    else {
       this.props.handleChangeSocket(true);
     }
   }
-  // getRange() {
-  //   switch (this.props.type) {
-  //     case "℃":
-  //       return {
-  //         min: this.props.range.min_temp,
-  //         max: this.props.range.max_temp,
-  //       };
-  //     case "%":
-  //       return { min: this.props.range.min_hum, max: this.props.range.max_hum };
-  //     case "null":
-  //       return {
-  //         min: this.props.range.min_soil_moisture,
-  //         max: this.props.range.max_soil_moisture,
-  //       };
-  //     case "%%":
-  //       return {
-  //         min: this.props.range.min_light,
-  //         max: this.props.range.max_light,
-  //       };
-  //     default:
-  //       break;
-  //   }
-  // }
   render() {
-    // const range = this.getRange();
     const data = this.props.data;
     const type = this.props.type;
-    const T1 = data.map(({ time, T1 }, key) => {
+    const T1 = data.map(({time,T1},key)=>{
       let x = time;
       let y = T1.value;
-      return { x, y };
-    });
-    const H1 = data.map(({ time, H1 }, key) => {
+      return {x,y} 
+    })
+    // console.log(T1);
+    const T2 = data.map(({time, T2 },key)=>{
+      let x = time;
+      let y = T2.value;
+      return {x,y} 
+    })
+    const H1 = data.map(({time,H1},key)=>{
       let x = time;
       let y = H1.value;
-      return { x, y };
-    });
-    const SM1 = data.map(({ time, SM1 }, key) => {
+      return {x,y} 
+    })
+    const H2 = data.map(({time,H2},key)=>{
+      let x = time;
+      let y = H2.value;
+      return {x,y} 
+    })
+    const SM1 = data.map(({time, SM1 },key)=>{
       let x = time;
       let y = SM1.value;
-      return { x, y };
-    });
-    const SM2 = data.map(({ time, SM2 }, key) => {
+      return {x,y} 
+    })
+    const SM2= data.map(({time, SM2 },key)=>{
       let x = time;
       let y = SM2.value;
-      return { x, y };
-    });
-    const SM3 = data.map(({ time, SM3 }, key) => {
+      return {x,y} 
+    })
+    const SM3 = data.map(({time, SM3 },key)=>{
       let x = time;
       let y = SM3.value;
-      return { x, y };
-    });
-    const SM4 = data.map(({ time, SM4 }, key) => {
+      return {x,y} 
+    })
+    const SM4 = data.map(({time, SM4 },key)=>{
       let x = time;
       let y = SM4.value;
-      return { x, y };
-    });
-    const SM5 = data.map(({ time, SM5 }, key) => {
+      return {x,y} 
+    })
+    const SM5 = data.map(({time, SM5 },key)=>{
       let x = time;
       let y = SM5.value;
-      return { x, y };
-    });
-    const SM6 = data.map(({ time, SM6 }, key) => {
+      return {x,y} 
+    })
+    const SM6= data.map(({time, SM6 },key)=>{
       let x = time;
       let y = SM6.value;
-      return { x, y };
-    });
-    const SM7 = data.map(({ time, SM7 }, key) => {
+      return {x,y} 
+    })
+    const SM7 = data.map(({time, SM7 },key)=>{
       let x = time;
       let y = SM7.value;
-      return { x, y };
-    });
-    const SM8 = data.map(({ time, SM8 }, key) => {
+      return {x,y} 
+    })
+    const SM8 = data.map(({time, SM8 },key)=>{
       let x = time;
       let y = SM8.value;
-      return { x, y };
-    });
-    const SM9 = data.map(({ time, SM9 }, key) => {
+      return {x,y} 
+    })
+    const SM9 = data.map(({time, SM9 },key)=>{
       let x = time;
       let y = SM9.value;
-      return { x, y };
-    });
-    const SM10 = data.map(({ time, SM10 }, key) => {
+      return {x,y} 
+    })
+    const SM10= data.map(({time, SM10 },key)=>{
       let x = time;
       let y = SM10.value;
-      return { x, y };
-    });
-    const SM11 = data.map(({ time, SM11 }, key) => {
+      return {x,y} 
+    })
+    const SM11 = data.map(({time, SM11 },key)=>{
       let x = time;
       let y = SM11;
-      return { x, y };
-    });
-    const SM12 = data.map(({ time, SM12 }, key) => {
+      return {x,y} 
+    })
+    const SM12 = data.map(({time, SM12 },key)=>{
       let x = time;
       let y = SM12.value;
-      return { x, y };
-    });
-    const SM13 = data.map(({ time, SM13 }, key) => {
+      return {x,y} 
+    })
+    const SM13 = data.map(({time, SM13 },key)=>{
       let x = time;
       let y = SM13.value;
-      return { x, y };
-    });
-    const SM14 = data.map(({ time, SM14 }, key) => {
+      return {x,y} 
+    })
+    const SM14= data.map(({time, SM14 },key)=>{
       let x = time;
       let y = SM14.value;
-      return { x, y };
-    });
-    const SM15 = data.map(({ time, SM15 }, key) => {
+      return {x,y} 
+    })
+    const SM15 = data.map(({time, SM15 },key)=>{
       let x = time;
       let y = SM15.value;
-      return { x, y };
-    });
-    const SM16 = data.map(({ time, SM16 }, key) => {
+      return {x,y} 
+    })
+    const SM16 = data.map(({time, SM16 },key)=>{
       let x = time;
       let y = SM16.value;
-      return { x, y };
-    });
-    const SM17 = data.map(({ time, SM17 }, key) => {
+      return {x,y} 
+    })
+    const SM17 = data.map(({time, SM17 },key)=>{
       let x = time;
       let y = SM17.value;
-      return { x, y };
-    });
-    const SM18 = data.map(({ time, SM18 }, key) => {
+      return {x,y} 
+    })
+    const SM18= data.map(({time, SM18 },key)=>{
       let x = time;
       let y = SM18.value;
-      return { x, y };
-    });
-    const SM19 = data.map(({ time, SM19 }, key) => {
+      return {x,y} 
+    })
+    const SM19 = data.map(({time, SM19 },key)=>{
       let x = time;
       let y = SM19.value;
-      return { x, y };
-    });
-    const SM20 = data.map(({ time, SM20 }, key) => {
+      return {x,y} 
+    })
+    const SM20 = data.map(({time, SM20 },key)=>{
       let x = time;
       let y = SM20.value;
-      return { x, y };
-    });
-    const L1 = data.map(({ time, L1 }, key) => {
+      return {x,y} 
+    })
+    const PH1 = data.map(({time,PH1 },key)=>{
+      let x = time;
+      let y = PH1.value;
+      return {x,y} 
+    })
+    const PH2 = data.map(({time,PH2 },key)=>{
+      let x = time;
+      let y = PH2.value;
+      return {x,y} 
+    })
+    const L1 = data.map(({time,L1 },key)=>{
       let x = time;
       let y = L1.value;
-      return { x, y };
-    });
-
+      return {x,y} 
+    })
+    const L2 = data.map(({time,L2 },key)=>{
+      let x = time;
+      let y = L2.value;
+      return {x,y} 
+    })
+    
     return (
       <Card className="flex-fill">
         <CardHeader>
           <Row>
-            {this.state.type === "realtime" ? (
-              <Col>
-                <CardTitle tag="h5" className="mb-0 mt-2 ml-1">
-                  Biểu đồ đánh giá
-                </CardTitle>
+            {
+                this.state.type === "realtime"
+                  ?
+                  <Col>
+                    <CardTitle tag="h5" className="mb-0 mt-2 ml-1">Biểu đồ đánh giá</CardTitle>
+                  </Col>
+                  :
+                  <Col>
+                    <DateTimePicker className=" d-inline" handerSetDueDateKPI={this.handerSetDueDateKPI} />
+                  </Col>
+              }
+              <Col xs="3">
+                <Input type="select" value={this.state.type} onChange={this.handleChangeType} >
+                  <option value="realtime">Thời gian thực</option>
+                  <option value="report">Báo cáo</option>
+                </Input>
               </Col>
-            ) : (
-              <Col>
-                <DateTimePicker
-                  className=" d-inline"
-                  handerSetDueDateKPI={this.handerSetDueDateKPI}
-                />
-              </Col>
-            )}
-            <Col xs="3">
-              <Input
-                type="select"
-                value={this.state.type}
-                onChange={this.handleChangeType}
-              >
-                <option value="realtime">Thời gian thực</option>
-                <option value="report">Báo cáo</option>
-              </Input>
-            </Col>
           </Row>
-          <CardTitle
-            tag="h5"
-            className="mb-0 text-center text-success font-weight-bold !important"
-          >
-            Biều Đồ Theo Dõi Cảm Biến Theo Thời Gian Thực
-          </CardTitle>
+        <CardTitle tag="h5" className="mb-0 text-center text-success font-weight-bold !important">Biều Đồ Theo Dõi Cảm Biến Theo Thời Gian Thực</CardTitle>
+        
         </CardHeader>
         <CardBody>
           <div className="chart">
             <ApexCharts
               options={this.options}
               series={
-                type === "℃"
-                  ? [
-                      {
-                        name: "T",
-                        data: T1,
-                      },
-                    ]
-                  : type === "%"
-                  ? [
-                      {
-                        name: "H",
-                        data: H1,
-                      },
-                    ]
-                  : type === "null"
-                  ? [
-                      {
-                        name: "L",
-                        data: L1,
-                      },
-                    ]
-                  : this.props.sub_id === "G00"
-                  ? [
-                      {
-                        name: "SM1",
-                        data: SM1,
-                      },
-                      {
-                        name: "SM2",
-                        data: SM2,
-                      },
-                      {
-                        name: "SM3",
-                        data: SM3,
-                      },
-                      {
-                        name: "SM4",
-                        data: SM4,
-                      },
-                      {
-                        name: "SM5",
-                        data: SM5,
-                      },
-                      {
-                        name: "SM6",
-                        data: SM6,
-                      },
-                      {
-                        name: "SM7",
-                        data: SM7,
-                      },
-                      {
-                        name: "SM8",
-                        data: SM8,
-                      },
-                      {
-                        name: "SM9",
-                        data: SM9,
-                      },
-                      {
-                        name: "SM10",
-                        data: SM10,
-                      },
-                      {
-                        name: "SM11",
-                        data: SM11,
-                      },
-                      {
-                        name: "SM12",
-                        data: SM12,
-                      },
-                      {
-                        name: "SM13",
-                        data: SM13,
-                      },
-                      {
-                        name: "SM14",
-                        data: SM14,
-                      },
-                      {
-                        name: "SM15",
-                        data: SM15,
-                      },
-                      {
-                        name: "SM16",
-                        data: SM16,
-                      },
-                    ]
-                  : this.props.sub_id === "G01"
-                  ? [
-                      {
-                        name: "SM17",
-                        data: SM17,
-                      },
-                      {
-                        name: "SM18",
-                        data: SM18,
-                      },
-                    ]
-                  : [
-                      {
-                        name: "SM19",
-                        data: SM19,
-                      },
-                      {
-                        name: "SM20",
-                        data: SM20,
-                      },
-                    ]
+                type === "℃" ?
+                [
+                  {
+                    name: "T1",
+                    data: T1
+                  },
+                  {
+                    name: "T2",
+                    data: T2
+                  }
+                ]
+                : type === "%" ?
+                [
+                  {
+                    name: "H1",
+                    data: H1
+                  },
+                  {
+                    name: "H2",
+                    data: H2
+                  }
+                ]
+                : type === "null" ?
+                [
+                  {
+                    name: "L1",
+                    data: L1
+                  },
+                  {
+                    name: "L2",
+                    data: L2
+                  }
+                ]
+                : type === "%%" ?
+                [
+                  {
+                    name: "SM1",
+                    data: SM1
+                  },
+                  {
+                    name: "SM2",
+                    data: SM2
+                  },
+                  {
+                    name: "SM3",
+                    data: SM3
+                  },
+                  {
+                    name: "SM4",
+                    data: SM4
+                  },
+                  {
+                    name: "SM5",
+                    data: SM5
+                  },
+                  {
+                    name: "SM6",
+                    data: SM6
+                  },
+                  {
+                    name: "SM7",
+                    data: SM7
+                  },
+                  {
+                    name: "SM8",
+                    data: SM8
+                  },
+                  {
+                    name: "SM9",
+                    data: SM9
+                  },
+                  {
+                    name: "SM10",
+                    data: SM10
+                  },
+                  {
+                    name: "SM11",
+                    data: SM11
+                  },
+                  {
+                    name: "SM12",
+                    data: SM12
+                  },
+                  {
+                    name: "SM13",
+                    data: SM13
+                  },
+                  {
+                    name: "SM14",
+                    data: SM14
+                  },
+                  {
+                    name: "SM15",
+                    data: SM15
+                  },
+                  {
+                    name: "SM16",
+                    data: SM16
+                  },
+                  {
+                    name: "SM17",
+                    data: SM17
+                  },
+                  {
+                    name: "SM18",
+                    data: SM18
+                  },
+                  {
+                    name: "SM19",
+                    data: SM19
+                  },
+                  {
+                    name: "SM20",
+                    data: SM20
+                  }
+                ]
+                :
+                [
+                  {
+                    name: "PH1",
+                    data: PH1
+                  },
+                  {
+                    name: "PH2",
+                    data: PH2
+                  }
+                ]
               }
               type="line"
               height="350"

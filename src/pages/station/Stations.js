@@ -129,7 +129,6 @@ class Project extends React.Component {
                           
                 // // --------sau khi thay doi va update ok
                 Notification("success", "Edit Station", "Edit station is successfully");
-                this.handleCloseConfig();
             }
         });
     }
@@ -446,21 +445,8 @@ class Project extends React.Component {
                                     </Input>
                                 </Col>
                                 <Col xs='6'>
-                                    <Label>Diện tích trồng (m2)</Label>
-                                    <Input
-                                        type='number'
-                                        width='10px'
-                                        name='seed._dientich'
-                                        id='createProject'>
-                                    </Input>
+                                    <DateTimePicker handleDate={this.handleDate} />
                                 </Col>
-                            </Row>
-                        </FormGroup>
-                        <FormGroup>
-                            <Row>
-                            <Col xs='6'>
-                                <DateTimePicker handleDate={this.handleDate} />
-                            </Col>
                             </Row>
                         </FormGroup>
                     </ModalBody>
@@ -472,8 +458,7 @@ class Project extends React.Component {
                         </Button>
                         <Button
                             className='station__button-create'
-                            onClick={this.handleCreateProject.bind(this)}
-                        >
+                            onClick={this.handleCreateProject.bind(this)}>
                             Tạo mới
                         </Button>
                     </ModalFooter>
@@ -499,9 +484,9 @@ class Project extends React.Component {
                                                     : "" || seed.seed === "cucumber"
                                                     ? "Dưa chuột"
                                                     : "" || seed.seed === "pakchoi"
-                                                    ? "Cải chíp"
-                                                    : "" || seed.seed === "brassica"
                                                     ? "Cải ngọt"
+                                                    : "" || seed.seed === "brassica"
+                                                    ? "Cải chíp"
                                                     : "" || seed.seed === "cabbage"
                                                     ? "Bắp cải"
                                                     : ""}
@@ -517,7 +502,7 @@ class Project extends React.Component {
                                     <Tab eventKey='g1' title='Cây con'>
                                         <Card
                                             className='flex-fill w-100'
-                                            style={{ width: "100%" }}>
+                                            style={{ height: 370, width: "100%" }}>
                                             <CardBody className='my-0'>
                                                 <Row>
                                                     <Col xs='4'>Tổng số ngày :</Col>
@@ -686,51 +671,6 @@ class Project extends React.Component {
                                                                 this.state.dataConfig.stage_1.max_PH
                                                             }
                                                             onChange={this.handleChange}
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-4'>
-                                                        Thời gian tưới :
-                                                    </Col>
-                                                    <Col xs='4' className='mt-4 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='05:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-4 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='09:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-2 d-flex justify-content-end pr-0'>
-                                                    <p>Hoặc</p></Col>
-                                                    <Col xs='4' className='mt-2 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='17:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-2 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='19:00'
                                                             autoComplete='off'
                                                         />
                                                     </Col>
@@ -912,58 +852,13 @@ class Project extends React.Component {
                                                         />
                                                     </Col>
                                                 </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-4'>
-                                                        Thời gian tưới :
-                                                    </Col>
-                                                    <Col xs='4' className='mt-4 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='05:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-4 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='09:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-2 d-flex justify-content-end pr-0'>
-                                                    <p>Hoặc</p></Col>
-                                                    <Col xs='4' className='mt-2 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='17:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-2 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='19:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
                                             </CardBody>
                                         </Card>
                                     </Tab>
                                     <Tab eventKey='g3' title='Thu hoạch'>
                                         <Card
                                             className='flex-fill w-100'
-                                            style={{  width: "100%" }}>
+                                            style={{ height: 370, width: "100%" }}>
                                             <CardBody className='my-0'>
                                                 <Row>
                                                     <Col xs='4'>Tổng số ngày :</Col>
@@ -1136,51 +1031,6 @@ class Project extends React.Component {
                                                         />
                                                     </Col>
                                                 </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-4'>
-                                                        Thời gian tưới :
-                                                    </Col>
-                                                    <Col xs='4' className='mt-4 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='05:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-4 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='09:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col xs='4' className='mt-2 d-flex justify-content-end pr-0'>
-                                                    <p>Hoặc</p></Col>
-                                                    <Col xs='4' className='mt-2 pr-1 d-flex justify-content-between align-items-center '>
-                                                        <p className="pr-3">Từ</p>
-                                                        <Input 
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='17:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                    <Col xs='4' className="mt-2 d-flex justify-content-between align-items-center">
-                                                        <p className="pr-3">Đến</p>
-                                                        <Input
-                                                            style={{ width: 'calc(100% - 42px)'}}
-                                                            type='time'
-                                                            defaultValue='19:00'
-                                                            autoComplete='off'
-                                                        />
-                                                    </Col>
-                                                </Row>
                                             </CardBody>
                                         </Card>
                                     </Tab>
@@ -1218,16 +1068,19 @@ class Project extends React.Component {
 
                 {/*------------------------------------------------------------------  */}
 
-                <h2 className='text-center text-primary mt-5'>
-                    TRANG TRẠI CÔNG TY SUNNY VIETNAM 
-                </h2>
-                <h3 className="text-center text-primary m-3">
-                    Quản lý cây trồng 
-                </h3>
+                <h1 className='text-center text-primary station__title m-5'>
+                    DANH SÁCH CÁC TRANG TRẠI
+                </h1>
 
                 <Container className='mt-2'>
                     <Row>
                         <Col xs='4' sm="2" md="2" lg="2" className="float-left">
+                            <Input
+                                className="mb-1" 
+                                id='inputSearch'
+                                placeholder='Tìm kiếm trang trại'
+                                onKeyUp={this.handleSearch.bind(this)}
+                            />
                         </Col>
                         <Col xs="8" md='4'>
                             {isAdmin ? (
@@ -1272,9 +1125,6 @@ class Project extends React.Component {
                                                 address,
                                                 seed_name,
                                                 started_plant,
-                                                stage,
-                                                acreage,
-                                                statusUse
                                             },
                                             index,
                                         ) => {
@@ -1291,9 +1141,6 @@ class Project extends React.Component {
                                                         started_plant={started_plant}
                                                         address={address}
                                                         seed_name={seed_name}
-                                                        stage = {stage}
-                                                        acreage = {acreage}
-                                                        statusUse = {statusUse}
                                                         className="p-0"
                                                     />
                                                 );
@@ -1311,9 +1158,6 @@ class Project extends React.Component {
                                                             address={address}
                                                             seed_name={seed_name}
                                                             started_plant={started_plant}
-                                                            stage = {stage}
-                                                            acreage = {acreage}
-                                                            statusUse = {statusUse}
                                                             className="p-0"
                                                         />
                                                     );

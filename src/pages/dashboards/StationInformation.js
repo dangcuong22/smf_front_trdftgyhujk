@@ -138,55 +138,60 @@ class StationInformation extends React.Component {
                                                 data.stage.name === "harvest stage" ? "Thu hoạch" : ""  
                                             }
                                         </h3>  
-                                    <li className='mb-4 h4 d-flex align-items-center'>
+                                    <li className='mb-3 h4'>
                                         <CustomImg  
                                             src={Temperature}
                                             width={50}
                                             height={50}
                                             className="mr-2"
                                         />
-                                        <div>
-                                            <p className='mb-1 d-flex'>Ngưỡng trên: <p className="text-primary pl-1 mb-1">{data.stage.min_temp}℃</p></p>
-                                            <p className='mb-1 d-flex'>Ngưỡng dưới: <p className="text-primary pl-1 mb-1">{data.stage.max_temp}℃</p></p>    
-                                        </div>
-                                        
+                                        Nhiệt độ: <Link to='#'>{data.stage.min_temp}</Link>{" "}
+                                        {" < T < "} <Link to='#'>{data.stage.max_temp}</Link>
                                     </li>
 
-                                    <li className='mb-4 h4 d-flex align-items-center'>
+                                    <li className='mb-3 h4'>
                                         <CustomImg  
                                             src={Light}
                                             width={50}
                                             height={50}
                                             className="mr-2"
                                         />
-                                        <div>
-                                            <p className='mb-1 d-flex'>Ngưỡng trên: <p className="text-primary pl-1 mb-1">{data.stage.min_light} Lux</p></p>
-                                            <p className='mb-1 d-flex'>Ngưỡng dưới: <p className="text-primary pl-1 mb-1">{data.stage.max_light} Lux</p></p>    
-                                        </div>
+                                        Ánh sáng: <Link to='#'>{data.stage.min_light}</Link>
+                                        {" < L < "} <Link to='#'>{data.stage.max_light}</Link>
                                     </li>
-                                    <li className='mb-4 h4 d-flex align-items-center'>
+                                    <li className='mb-3 h4'>
+                                        <CustomImg  
+                                            src={PH}
+                                            width={50}
+                                            height={50}
+                                            className="mr-2"
+                                        />
+                                        PH: <Link to='#'>{data.stage.min_PH}</Link> {" < PH < "}{" "}
+                                        <Link to='#'>{data.stage.max_PH}</Link>
+                                    </li>
+                                    <li className='mb-3 h4'>
                                         <CustomImg  
                                             src={SM}
                                             width={50}
                                             height={50}
                                             className="mr-2"
                                         />
-                                        <div>
-                                            <p className='mb-1 d-flex'>Ngưỡng trên: <p className="text-primary pl-1 mb-1">{data.stage.min_soil_moisture}%</p></p>
-                                            <p className='mb-1 d-flex'>Ngưỡng dưới: <p className="text-primary pl-1 mb-1">{data.stage.max_soil_moisture}%</p></p>    
-                                        </div>
+                                        Độ ẩm đất:{" "}
+                                        <Link to='#'>{data.stage.min_soil_moisture}</Link>{" "}
+                                        {" < SM < "}{" "}
+                                        <Link to='#'>{data.stage.max_soil_moisture}</Link>
                                     </li>
-                                    <li className='mb-4 h4 d-flex align-items-center'>
+                                    <li className='mb-3 h4'>
                                         <CustomImg  
                                             src={Hum}
                                             width={50}
                                             height={50}
                                             className="mr-2"
                                         />
-                                        <div>
-                                            <p className='mb-1 d-flex'>Ngưỡng trên: <p className="text-primary pl-1 mb-1">{data.stage.min_hum}%</p></p>
-                                            <p className='mb-1 d-flex'>Ngưỡng dưới: <p className="text-primary pl-1 mb-1">{data.stage.max_hum}%</p></p>    
-                                        </div>
+                                        Độ ẩm không khí: <Link to='#'>
+                                            {data.stage.min_hum}
+                                        </Link>{" "}
+                                        {" < H < "} <Link to='#'>{data.stage.max_hum}</Link>
                                     </li>
                                 </ul>
                             </CardBody>

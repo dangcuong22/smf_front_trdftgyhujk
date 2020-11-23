@@ -1,16 +1,15 @@
 const config_network = {
-    // "host": "https://smartfarm.tinasoft.com.vn",
-    // "port": "443",
-    host: "http://3.93.77.133",
-    port: "8001",
+    "host": "https://smartfarm.tinasoft.com.vn",
+    "port": "443",
+    // host: "http://localhost",
+    // port: "8001",
 };
 const config_public ={
-    ip: "http://3.93.77.133:8001"
-    // ip: "http://smartfarm.tinasoft.com.vn:8001"
+    ip: "http://smartfarm.tinasoft.com.vn:8001"
 }
 const config_socket = {
-    // ip: "https://smartfarm.tinasoft.com.vn:443",
-    ip: "http://3.93.77.133:8001"
+    ip: "https://smartfarm.tinasoft.com.vn:443",
+    // ip: "http://localhost:8001",
 };
 
 const api_path = config_network.host + ":" + config_network.port + "/api/v1/";
